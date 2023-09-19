@@ -36,13 +36,9 @@ function CardHolderModal({ isOpen, setOpen, client }: { isOpen: boolean, setOpen
                     <IonList>
                         <IonLabel style={{ textAlign: 'center' }} position="stacked"><h1 style={{ fontWeight: 'bold' }}>ФИО</h1></IonLabel>
                         <IonItem className="ion-padding-bottom" >
-                            <IonLabel>{`${client?.lastName} ${client?.firstName} ${client?.middleName}`}</IonLabel>
+                            <IonLabel>{`${client?.lastName} ${client?.firstName}`}</IonLabel>
                         </IonItem>
 
-                        <IonLabel style={{ textAlign: 'center' }} position="stacked"><h1 style={{ fontWeight: 'bold' }}>Номер карты</h1></IonLabel>
-                        <IonItem className="ion-padding-bottom">
-                            <IonLabel>{client?.cardNumber}</IonLabel>
-                        </IonItem>
                         <IonLabel style={{ textAlign: 'center' }} position="stacked"><h1 style={{ fontWeight: 'bold' }}>Дата рождения</h1></IonLabel>
                         <IonItem className="ion-padding-bottom">
                             <IonLabel>{client?.birth.toLocaleDateString()} (Возраст: {calculateAge(client?.birth)})</IonLabel>
