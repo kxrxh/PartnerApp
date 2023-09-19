@@ -14,12 +14,15 @@ import {
 } from '@ionic/react';
 import { syncOutline } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
-import { storageGet, storageSet } from '../storage/Storage';
+import { storageClear, storageGet, storageSet } from '../storage/Storage';
 import './ToolsView.css';
+import { useUUID } from '../utils/State';
 
 function ToolsView() {
   const [lastSyncTime, setLastSyncTime] = useState<string | null>(null);
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
+  const { uuid, setUUID } = useUUID();
+
 
 
   const loadLastSyncTime = async () => {
@@ -75,7 +78,10 @@ function ToolsView() {
               <IonText color='primary' className="on-margin-bottom">Название организации: </IonText>ООО "Партнер"
             </div>
             <div>
-              <IonText color='primary' className="on-margin-bottom">Почта: </IonText>partner.corp@mail.com
+              <IonText color='primary' className="on-margin-bottom">Почта: </IonText>{uuid}
+            </div>
+            <div>
+              <IonButton expand="full" shape="round" onClick={() => { setUUID(""); storageClear() }}>Выйти</IonButton>
             </div>
           </IonCardContent>
         </IonCard>

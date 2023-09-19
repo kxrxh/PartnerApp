@@ -6,7 +6,7 @@ export async function storageGet(key: string): Promise<string> {
         const result = await SecureStoragePlugin.get({ key });
         return result.value;
     } catch (e) {
-        return "null";
+        return "";
     }
 }
 

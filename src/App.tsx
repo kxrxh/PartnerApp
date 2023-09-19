@@ -37,16 +37,16 @@ import "./theme/variables.css";
 import { Device } from "@capacitor/device";
 import { useUUID } from "./utils/State";
 import ConnectionToast from "./components/ConnectionErrorToast";
+import { storageGet } from "./storage/Storage";
 
 setupIonicReact();
 
 function App() {
-  const [hasValidKey, setHasValidKey] = useState(true);
-  const { setUUID } = useUUID();
+  const { uuid, setUUID } = useUUID();
   useEffect(() => {
     const logDeviceInfo = async () => {
-      const info = await Device.getId();
-      setUUID(info.identifier);
+      const info = await storageGet('id');
+      setUUID(info);
     };
     logDeviceInfo();
   }, []);
@@ -65,18 +65,18 @@ function App() {
               <NfcTab />
             </Route>
             <Route exact path="/account">
-              <ToolsTab isLoggedIn={hasValidKey} />
+              <ToolsTab isLoggedIn={uuid ? true : false} />
             </Route>
             <Route exact path="/">
               <Redirect to="/account" />
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
-            <IonTabButton tab="camera" href="/camera" disabled={!hasValidKey}>
+            <IonTabButton tab="camera" href="/camera" disabled={!(uuid ? true : false)}>
               <IonIcon aria-hidden="true" icon={camera} />
               <IonLabel>Сканировать</IonLabel>
             </IonTabButton>
-            <IonTabButton tab="nfc" href="/nfc" disabled={!hasValidKey}>
+            <IonTabButton tab="nfc" href="/nfc" disabled={!(uuid ? true : false)}>
               <IonIcon aria-hidden="true" icon={radio} />
               <IonLabel>NFC</IonLabel>
             </IonTabButton>
